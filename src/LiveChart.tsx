@@ -20,7 +20,6 @@ const dataset: Point[] = Array.from({ length: 240 }, (_, i) => {
 const options: ApexOptions = {
   chart: {
     id: "realtime",
-    height: 350,
     type: "line",
     animations: {
       enabled: true,
@@ -64,7 +63,12 @@ const options: ApexOptions = {
   },
 };
 
-const LiveChart: React.FC = () => {
+interface LiveChartProps {
+  height: number;
+  width: number;
+}
+
+const LiveChart: React.FC<LiveChartProps> = ({ height, width }) => {
   const [data, setData] = useState<{ index: number; points: Point[] }>({
     index: 0,
     points: [],
@@ -111,8 +115,8 @@ const LiveChart: React.FC = () => {
           options={options}
           series={series}
           type="line"
-          height={400}
-          width={1000}
+          height={height}
+          width={width}
         />
       </div>
     </>

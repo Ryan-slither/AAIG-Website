@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import Nav from "./Nav";
+//import Nav from "./Nav";
 import Home from "./Home";
 
 const App: React.FC = () => {
@@ -8,8 +8,26 @@ const App: React.FC = () => {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<><Nav /><Home /></>} />
-          <Route path="*" element={<><Nav /><div>Looks like you have wandered to a page that does not exist</div></>} />
+          <Route
+            path="/"
+            element={
+              <>
+                {/* <Nav /> */}
+                <Home />
+              </>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <>
+                {/* <Nav /> */}
+                <div>
+                  Looks like you have wandered to a page that does not exist
+                </div>
+              </>
+            }
+          />
         </Routes>
       </Router>
     </>
