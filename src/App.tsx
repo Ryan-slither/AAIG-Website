@@ -6,7 +6,7 @@ import Home from "./Home";
 const App: React.FC = () => {
   return (
     <>
-      <Router>
+      <Router basename="/AAIG-Website">
         <Routes>
           <Route
             path="/"
