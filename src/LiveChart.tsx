@@ -1,7 +1,5 @@
-import type { ApexOptions } from "apexcharts";
-import ApexChart from "apexcharts";
 import React, { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import { Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 
 interface Point {
   x: number;
@@ -17,52 +15,6 @@ const dataset: Point[] = Array.from({ length: 240 }, (_, i) => {
   return { x: i, y: start };
 });
 
-const options: ApexOptions = {
-  chart: {
-    id: "realtime",
-    type: "line",
-    animations: {
-      enabled: true,
-      animateGradually: {
-        enabled: true,
-        delay: 500,
-      },
-      dynamicAnimation: {
-        enabled: true,
-        speed: 500,
-      },
-    },
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false,
-    },
-  },
-  colors: ["#fe6d0dff"],
-  dataLabels: {
-    enabled: false,
-  },
-  stroke: {
-    curve: "straight",
-  },
-  title: {
-    text: "Error Rate by Time (seconds)",
-    align: "left",
-  },
-  xaxis: {
-    type: "numeric",
-    tickAmount: "dataPoints",
-    tickPlacement: "on",
-    decimalsInFloat: 0,
-  },
-  yaxis: {
-    min: 0,
-    max: 1,
-    decimalsInFloat: 2,
-  },
-};
-
 interface LiveChartProps {
   height: number;
   width: number;
@@ -73,21 +25,6 @@ const LiveChart: React.FC<LiveChartProps> = ({ height, width }) => {
     index: 0,
     points: [],
   });
-  const [series, _] = useState<ApexNonAxisChartSeries>([
-    {
-      name: "error",
-      data: data.points,
-    },
-  ]);
-
-  useEffect(() => {
-    ApexChart.exec("realtime", "updateSeries", [
-      {
-        data: data.points,
-      },
-    ]);
-    console.log(data);
-  }, [data]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -111,13 +48,30 @@ const LiveChart: React.FC<LiveChartProps> = ({ height, width }) => {
   return (
     <>
       <div className="live-chart-container">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="line"
-          height={height}
+        <LineChart
           width={width}
-        />
+          height={height}
+          data={data.points}
+          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+        >
+          <Line
+            type="monotone"
+            dataKey="y"
+            stroke="purple"
+            strokeWidth={2}
+            name="My data series name"
+            animationEasing="linear"
+            animationDuration={200}
+            dot={false}
+          />
+          <XAxis dataKey="x" />
+          <YAxis
+            width="auto"
+            label={{ value: "y", position: "insideLeft", angle: -90 }}
+          />
+          <Legend align="right" />
+          <Tooltip />
+        </LineChart>
       </div>
     </>
   );
