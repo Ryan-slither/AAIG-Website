@@ -1,75 +1,113 @@
 import React, { useEffect, useState } from "react";
-import { Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  CartesianGrid,
+  Label,
+  Legend,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
-interface Point {
-  x: number;
-  y: number;
-}
-
-const CHOICES = [-0.1 - 0.05, -0.01, 0.01, 0.05, 0.1];
-
-var start = 0.5;
-const dataset: Point[] = Array.from({ length: 240 }, (_, i) => {
-  start += CHOICES[Math.floor(Math.random() * CHOICES.length)];
-  start = start < 0 ? 0 : start > 1 ? 1 : start;
-  return { x: i, y: start };
-});
+type data = { x: number; y1: number; y2: number }[];
 
 interface LiveChartProps {
   height: number;
   width: number;
+  data: data; // Object with an x and two possible y's
+  xName: string;
+  y1Name: string;
+  y1Color: string;
+  y2Name: string;
+  y2Color: string;
+  chartName: string;
+  xValuesPerFrame?: number;
+  started: boolean;
 }
 
-const LiveChart: React.FC<LiveChartProps> = ({ height, width }) => {
-  const [data, setData] = useState<{ index: number; points: Point[] }>({
+const LiveChart: React.FC<LiveChartProps> = ({
+  height,
+  width,
+  data,
+  xName,
+  y1Name,
+  y1Color,
+  y2Name,
+  y2Color,
+  chartName,
+  xValuesPerFrame = 100,
+  started,
+}) => {
+  const [shownData, setShownData] = useState<{ index: number; data: data }>({
     index: 0,
-    points: [],
+    data: data,
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setData((prev) => {
+      setShownData((prev) => {
         const newIndex = prev.index + 1;
         console.log(newIndex);
-        if (newIndex > dataset.length - 60) {
+        if (newIndex > data.length - xValuesPerFrame) {
           console.log("ENDED");
           return prev;
         }
         return {
           index: newIndex,
-          points: dataset.slice(newIndex, 60 + newIndex),
+          data: data.slice(newIndex, xValuesPerFrame + newIndex),
         };
       });
     }, 1000);
 
+    if (!started) {
+      setTimeout(() => {
+        clearInterval(interval);
+      }, 1100);
+      return;
+    }
+
     return () => clearInterval(interval);
-  }, []);
+  }, [started]);
 
   return (
     <>
       <div className="live-chart-container">
-        <LineChart
-          width={width}
-          height={height}
-          data={data.points}
-          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-        >
+        <h4 style={{ textAlign: "center", fontWeight: "normal", opacity: 0.6 }}>
+          {chartName}
+        </h4>
+        <LineChart width={width} height={height} data={shownData.data}>
+          <CartesianGrid strokeDasharray="1 1" />
           <Line
             type="monotone"
-            dataKey="y"
-            stroke="purple"
-            strokeWidth={2}
-            name="My data series name"
+            yAxisId="left"
+            dataKey="y1"
+            stroke={y1Color}
+            strokeWidth={1}
+            name={y1Name}
             animationEasing="linear"
             animationDuration={200}
             dot={false}
           />
-          <XAxis dataKey="x" />
-          <YAxis
-            width="auto"
-            label={{ value: "y", position: "insideLeft", angle: -90 }}
+          <Line
+            type="monotone"
+            yAxisId="right"
+            dataKey="y2"
+            stroke={y2Color}
+            strokeWidth={1}
+            name={y2Name}
+            animationEasing="linear"
+            animationDuration={200}
+            dot={false}
           />
-          <Legend align="right" />
+          <XAxis dataKey="x" name={xName} />
+          <YAxis yAxisId="left" domain={[-0.05, 1.05]} orientation="left">
+            <Label value={y1Name} position="center" angle={-90} dx={-25} />
+          </YAxis>
+          <YAxis yAxisId="right" domain={[-0.05, 1.05]} orientation="right">
+            <Label value={y2Name} position="center" angle={-90} dx={25} />
+          </YAxis>
+          <Legend align="center" />
           <Tooltip />
         </LineChart>
       </div>

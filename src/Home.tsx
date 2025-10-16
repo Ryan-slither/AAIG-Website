@@ -8,8 +8,31 @@ import {
 import "./Home.css";
 import LiveChart from "./LiveChart";
 import fusion from "./assets/fusionControllerDiagram.png";
+import metrics from "./constants/metrics_json_20251015_210007.json";
+import { useState } from "react";
+import { FaPause, FaPlay } from "react-icons/fa";
+
+const steps = metrics.phase2_adapt_ctamd.step;
+const driftSignal = metrics.phase2_adapt_ctamd.drift_signal;
+const errorSignal = metrics.phase2_adapt_ctamd.error_signal;
+const learningRate = 0.005;
+const fusionAlpha = metrics.phase2_adapt_ctamd.fusion_alpha;
+
+const firstFigureData = steps.map((_, idx) => ({
+  x: steps[idx],
+  y1: errorSignal[idx],
+  y2: driftSignal[idx],
+}));
+
+const secondFigureData = steps.map((_, idx) => ({
+  x: steps[idx],
+  y1: fusionAlpha[idx],
+  y2: learningRate,
+}));
 
 const Home: React.FC = () => {
+  const [started, setStarted] = useState(false);
+
   return (
     <>
       <div className="home-container">
@@ -30,15 +53,49 @@ const Home: React.FC = () => {
           alt="Fusion Controller Diagram"
         />
         <p className="demo-detail">{systemDesign}</p>
-        <h2 className="demo-subtitle mokoto-orange">
-          Model Performance in Real-Time:
-        </h2>
+        <div className="play-container">
+          <h2 className="demo-subtitle mokoto-orange">
+            Model Performance in Real-Time:
+          </h2>
+          <div
+            className="play-button"
+            onClick={() => setStarted((prev) => !prev)}
+          >
+            {started ? (
+              <FaPause size={25} color="white" />
+            ) : (
+              <FaPlay size={25} color="white" />
+            )}
+          </div>
+        </div>
         <p className="demo-detail live-text">{liveFig2}</p>
-        <LiveChart width={500} height={300} />
+        <LiveChart
+          width={600}
+          height={350}
+          data={firstFigureData}
+          xName="Steps"
+          y1Name="Error Signal"
+          y1Color="purple"
+          y2Name="Drift Signal Estimation"
+          y2Color="maroon"
+          chartName="LS_OGD Error Signal & Drift Estimation"
+          started={started}
+        />
         <br></br>
         <br></br>
         <p className="demo-detail live-text">{liveFig3}</p>
-        <LiveChart width={500} height={300} />
+        <LiveChart
+          width={600}
+          height={350}
+          data={secondFigureData}
+          xName="Steps"
+          y1Name="Fusion Alpha"
+          y1Color="orange"
+          y2Name="Learning Rate"
+          y2Color="#ADD8E6"
+          chartName="Adaptation Signals"
+          started={started}
+        />
         <h2 className="demo-subtitle mokoto-orange">Conclusion:</h2>
         <p className="demo-detail">{conclusion}</p>
       </div>
