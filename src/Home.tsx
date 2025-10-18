@@ -83,8 +83,8 @@ const Home: React.FC = () => {
         </div>
         <p className="demo-detail live-text">{liveFig2}</p>
         <LiveChart
-          width={isMobile ? 330 : 800}
-          height={isMobile ? 200 : 400}
+          width={isMobile ? 370 : 800}
+          height={isMobile ? 240 : 400}
           data={firstFigureData}
           xName="Steps"
           y1Name="Error Signal"
@@ -98,8 +98,8 @@ const Home: React.FC = () => {
         <br></br>
         <p className="demo-detail live-text">{liveFig3}</p>
         <LiveChart
-          width={isMobile ? 330 : 800}
-          height={isMobile ? 200 : 400}
+          width={isMobile ? 370 : 800}
+          height={isMobile ? 240 : 400}
           data={secondFigureData}
           xName="Steps"
           y1Name="Fusion Alpha"
