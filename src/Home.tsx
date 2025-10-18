@@ -9,7 +9,7 @@ import "./Home.css";
 import LiveChart from "./LiveChart";
 import fusion from "./assets/fusionControllerDiagram.png";
 import metrics from "./constants/metrics_json_20251015_210007.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 
 const steps = metrics.phase2_adapt_ctamd.step;
@@ -32,6 +32,19 @@ const secondFigureData = steps.map((_, idx) => ({
 
 const Home: React.FC = () => {
   const [started, setStarted] = useState(false);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   return (
     <>
@@ -70,8 +83,8 @@ const Home: React.FC = () => {
         </div>
         <p className="demo-detail live-text">{liveFig2}</p>
         <LiveChart
-          width={600}
-          height={350}
+          width={isMobile ? 330 : 800}
+          height={isMobile ? 200 : 400}
           data={firstFigureData}
           xName="Steps"
           y1Name="Error Signal"
@@ -85,8 +98,8 @@ const Home: React.FC = () => {
         <br></br>
         <p className="demo-detail live-text">{liveFig3}</p>
         <LiveChart
-          width={600}
-          height={350}
+          width={isMobile ? 330 : 800}
+          height={isMobile ? 200 : 400}
           data={secondFigureData}
           xName="Steps"
           y1Name="Fusion Alpha"

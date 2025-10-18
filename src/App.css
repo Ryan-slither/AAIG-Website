@@ -1,3 +1,13 @@
+:root {
+  --content-width: 1200px;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --content-width: 300px;
+  }
+}
+
 .mokoto-orange {
   font-family: "mokoto";
   color: #e86105;
