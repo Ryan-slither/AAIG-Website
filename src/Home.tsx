@@ -8,14 +8,14 @@ import {
 import "./Home.css";
 import LiveChart from "./LiveChart";
 import fusion from "./assets/fusionControllerDiagram.png";
-import metrics from "./constants/metrics_json_20251015_210007.json";
+import metrics from "./constants/metrics_json_20251019_001439.json";
 import { useEffect, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 
 const steps = metrics.phase2_adapt_ctamd.step;
 const driftSignal = metrics.phase2_adapt_ctamd.drift_signal;
 const errorSignal = metrics.phase2_adapt_ctamd.error_signal;
-const learningRate = 0.005;
+const learningRate = metrics.phase2_adapt_ctamd.lr;
 const fusionAlpha = metrics.phase2_adapt_ctamd.fusion_alpha;
 
 const firstFigureData = steps.map((_, idx) => ({
@@ -27,7 +27,7 @@ const firstFigureData = steps.map((_, idx) => ({
 const secondFigureData = steps.map((_, idx) => ({
   x: steps[idx],
   y1: fusionAlpha[idx],
-  y2: learningRate,
+  y2: learningRate[idx],
 }));
 
 const Home: React.FC = () => {
@@ -89,8 +89,10 @@ const Home: React.FC = () => {
           xName="Steps"
           y1Name="Error Signal"
           y1Color="purple"
+          y1range={[-0.05, 1.05]}
           y2Name="Drift Signal Estimation"
           y2Color="maroon"
+          y2range={[-0.05, 4.05]}
           chartName="LS_OGD Error Signal & Drift Estimation"
           started={started}
         />
@@ -104,8 +106,10 @@ const Home: React.FC = () => {
           xName="Steps"
           y1Name="Fusion Alpha"
           y1Color="orange"
+          y1range={[-0.05, 1.05]}
           y2Name="Learning Rate"
           y2Color="#ADD8E6"
+          y2range={[1e-6, 1e-3]}
           chartName="Adaptation Signals"
           started={started}
         />

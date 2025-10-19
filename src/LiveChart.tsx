@@ -19,8 +19,10 @@ interface LiveChartProps {
   xName: string;
   y1Name: string;
   y1Color: string;
+  y1range: [number, number];
   y2Name: string;
   y2Color: string;
+  y2range: [number, number];
   chartName: string;
   xValuesPerFrame?: number;
   started: boolean;
@@ -33,8 +35,10 @@ const LiveChart: React.FC<LiveChartProps> = ({
   xName,
   y1Name,
   y1Color,
+  y1range,
   y2Name,
   y2Color,
+  y2range,
   chartName,
   xValuesPerFrame = 100,
   started,
@@ -101,10 +105,10 @@ const LiveChart: React.FC<LiveChartProps> = ({
             dot={false}
           />
           <XAxis dataKey="x" name={xName} />
-          <YAxis yAxisId="left" domain={[-0.05, 1.05]} orientation="left">
+          <YAxis yAxisId="left" domain={y1range} orientation="left">
             <Label value={y1Name} position="center" angle={-90} dx={-25} />
           </YAxis>
-          <YAxis yAxisId="right" domain={[-0.05, 1.05]} orientation="right">
+          <YAxis yAxisId="right" domain={y2range} orientation="right">
             <Label value={y2Name} position="center" angle={-90} dx={25} />
           </YAxis>
           <Legend align="center" />
