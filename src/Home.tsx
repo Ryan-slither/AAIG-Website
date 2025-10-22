@@ -83,8 +83,8 @@ const Home: React.FC = () => {
         </div>
         <p className="demo-detail live-text">{liveFig2}</p>
         <LiveChart
-          width={isMobile ? 370 : 800}
-          height={isMobile ? 240 : 400}
+          width={isMobile ? 385 : 850}
+          height={isMobile ? 245 : 425}
           data={firstFigureData}
           xName="Steps"
           y1Name="Error Signal"
@@ -93,15 +93,15 @@ const Home: React.FC = () => {
           y2Name="Drift Signal Estimation"
           y2Color="maroon"
           y2range={[-0.05, 4.05]}
-          chartName="LS_OGD Error Signal & Drift Estimation"
+          chartName="LS-OGD Error Signal & Drift Estimation"
           started={started}
         />
         <br></br>
         <br></br>
         <p className="demo-detail live-text">{liveFig3}</p>
         <LiveChart
-          width={isMobile ? 370 : 800}
-          height={isMobile ? 240 : 400}
+          width={isMobile ? 385 : 850}
+          height={isMobile ? 245 : 425}
           data={secondFigureData}
           xName="Steps"
           y1Name="Fusion Alpha"

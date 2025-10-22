@@ -62,12 +62,12 @@ const LiveChart: React.FC<LiveChartProps> = ({
           data: data.slice(newIndex, xValuesPerFrame + newIndex),
         };
       });
-    }, 1000);
+    }, 500);
 
     if (!started) {
       setTimeout(() => {
         clearInterval(interval);
-      }, 1100);
+      }, 600);
       return;
     }
 
@@ -80,7 +80,12 @@ const LiveChart: React.FC<LiveChartProps> = ({
         <h4 style={{ textAlign: "center", fontWeight: "normal", opacity: 0.6 }}>
           {chartName}
         </h4>
-        <LineChart width={width} height={height} data={shownData.data}>
+        <LineChart
+          width={width}
+          height={height}
+          data={shownData.data}
+          margin={{ top: 5, right: 25, left: 25 }}
+        >
           <CartesianGrid strokeDasharray="1 1" />
           <Line
             type="monotone"
@@ -105,11 +110,21 @@ const LiveChart: React.FC<LiveChartProps> = ({
             dot={false}
           />
           <XAxis dataKey="x" name={xName} />
-          <YAxis yAxisId="left" domain={y1range} orientation="left">
-            <Label value={y1Name} position="center" angle={-90} dx={-25} />
+          <YAxis
+            yAxisId="left"
+            domain={y1range}
+            orientation="left"
+            tickFormatter={(val: number, _) => val.toExponential(2)}
+          >
+            <Label value={y1Name} position="center" angle={-90} dx={-45} />
           </YAxis>
-          <YAxis yAxisId="right" domain={y2range} orientation="right">
-            <Label value={y2Name} position="center" angle={-90} dx={25} />
+          <YAxis
+            yAxisId="right"
+            domain={y2range}
+            orientation="right"
+            tickFormatter={(val: number, _) => val.toExponential(2)}
+          >
+            <Label value={y2Name} position="center" angle={-90} dx={45} />
           </YAxis>
           <Legend align="center" />
           <Tooltip />
