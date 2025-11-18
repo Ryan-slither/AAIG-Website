@@ -49,17 +49,31 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="home-container">
-        <h1 className="demo-title mokoto-orange">
+        <h1 className="demo-title mokoto-orange center">
           LS-OGD
           <br />
-          <span className="demo-title-detail">
+          <span className="demo-title-detail center">
             A Framework for Error-Bounded Multimodal Learning Under Concept
             Drift
           </span>
         </h1>
-        <h2 className="demo-subtitle mokoto-orange">Introduction:</h2>
+        <p className="demo-detail center">
+          Tianyu Bell Pan, Mengdi Zhu, Alexa Cole, Ronald Wilson, Ph.D., Damon
+          Woodard, Ph.D.
+        </p>
+        <p className="demo-detail center">
+          Department of Electrical and Computer Engineering
+        </p>
+        <p className="demo-detail center">
+          Florida Institute of National Security
+        </p>
+        <p className="demo-detail center">
+          Applied Artificial Intelligence Group
+        </p>
+        <p className="demo-detail center">University of Florida</p>
+        <h2 className="demo-subtitle mokoto-orange">Introduction</h2>
         <p className="demo-detail">{introText}</p>
-        <h2 className="demo-subtitle mokoto-orange">System Design Overview:</h2>
+        <h2 className="demo-subtitle mokoto-orange">System Design Overview</h2>
         <img
           className="demo-design"
           src={fusion}
@@ -68,7 +82,7 @@ const Home: React.FC = () => {
         <p className="demo-detail">{systemDesign}</p>
         <div className="play-container">
           <h2 className="demo-subtitle mokoto-orange">
-            Model Performance in Real-Time:
+            Model Performance in Real-Time
           </h2>
           <div
             className="play-button"
@@ -113,8 +127,11 @@ const Home: React.FC = () => {
           chartName="Adaptation Signals"
           started={started}
         />
-        <h2 className="demo-subtitle mokoto-orange">Conclusion:</h2>
+        <h2 className="demo-subtitle mokoto-orange">Conclusion</h2>
         <p className="demo-detail">{conclusion}</p>
+      </div>
+      <div className="footer">
+        Florida Institute of National Security | Created By Ryan Froug
       </div>
     </>
   );

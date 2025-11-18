@@ -4,13 +4,32 @@
   margin-top: 50px;
   margin-bottom: 100px;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   align-items: center;
 }
 
 .demo-title {
-  width: var(--content-width);
   line-height: 50px;
+}
+
+.center {
+  text-align: center;
+  width: 100% !important;
+}
+
+.footer {
+  text-align: center;
+  width: 40%;
+  margin: 0 auto;
+  font-family: "Georgia";
+  color: #333399;
+  margin-top: auto;
+  padding-bottom: 12px;
+  padding-top: 8px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  border-top: 1px solid lightgray;
 }
 
 .demo-title-detail {
@@ -20,7 +39,6 @@
 
 .demo-subtitle {
   margin-top: 50px;
-  width: var(--content-width);
   line-height: 50px;
 }
 
@@ -29,12 +47,15 @@
   font-family: "Georgia";
   color: #333399;
   line-height: 26px;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .demo-design {
   width: 900px;
   height: auto;
   margin: 20px;
+  border-radius: 20px;
 }
 
 .live-text {

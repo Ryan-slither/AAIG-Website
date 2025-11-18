@@ -1,22 +1,23 @@
 :root {
-  --content-width: 1200px;
+  --content-width: 600px;
+  background-color: #e8ebf740;
 }
 
 @media screen and (max-width: 768px) {
   :root {
-    --content-width: 92.5vw;
+    --content-width: 91.5vw;
   }
 }
 
 @media screen and (max-width: 400px) {
   :root {
-    --content-width: 95vw;
+    --content-width: 94vw;
   }
 }
 
 @media screen and (max-width: 430px) {
   :root {
-    --content-width: 96vw;
+    --content-width: 95vw;
   }
 }
 
