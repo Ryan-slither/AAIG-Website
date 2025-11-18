@@ -11,6 +11,7 @@ import fusion from "./assets/fusionControllerDiagram.png";
 import metrics from "./constants/metrics_json_20251019_001439.json";
 import { useEffect, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
+import Nav from "./Nav";
 
 const steps = metrics.phase2_adapt_ctamd.step;
 const driftSignal = metrics.phase2_adapt_ctamd.drift_signal;
@@ -48,13 +49,13 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <Nav />
       <div className="home-container">
         <h1 className="demo-title mokoto-orange center">
           LS-OGD
           <br />
           <span className="demo-title-detail center">
-            A Framework for Error-Bounded Multimodal Learning Under Concept
-            Drift
+            Lyapunov-Stable Adaptive Control for Multimodal Concept Drift
           </span>
         </h1>
         <p className="demo-detail center">
@@ -71,6 +72,7 @@ const Home: React.FC = () => {
           Applied Artificial Intelligence Group
         </p>
         <p className="demo-detail center">University of Florida</p>
+        <p className="demo-detail center"></p>
         <h2 className="demo-subtitle mokoto-orange">Introduction</h2>
         <p className="demo-detail">{introText}</p>
         <h2 className="demo-subtitle mokoto-orange">System Design Overview</h2>
