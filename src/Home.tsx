@@ -8,10 +8,14 @@ import {
 import "./Home.css";
 import LiveChart from "./LiveChart";
 import fusion from "./assets/fusionControllerDiagram.png";
+import neurilogo from "./assets/neurips-navbar-logo.svg";
+import githublogo from "./assets/githublogo.png";
+import arxivlogo from "./assets/arxivlogo.png";
 import metrics from "./constants/metrics_json_20251019_001439.json";
 import { useEffect, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 import Nav from "./Nav";
+import LinkButton from "./LinkButton";
 
 const steps = metrics.phase2_adapt_ctamd.step;
 const driftSignal = metrics.phase2_adapt_ctamd.drift_signal;
@@ -72,7 +76,24 @@ const Home: React.FC = () => {
           Applied Artificial Intelligence Group
         </p>
         <p className="demo-detail center">University of Florida</p>
-        <p className="demo-detail center"></p>
+        <div className="demo-button-container">
+          <LinkButton
+            buttonName="Conference"
+            buttonLink="https://neurips.cc/virtual/2025/loc/san-diego/poster/115357"
+            buttonLogo={neurilogo}
+            logoHeight={35}
+          />
+          <LinkButton
+            buttonName="arXiv"
+            buttonLink="https://arxiv.org/abs/2510.15944"
+            buttonLogo={arxivlogo}
+          />
+          <LinkButton
+            buttonName="GitHub"
+            buttonLink="https://github.com/Bellleuang1022/Lyapunov-Stable-Adaptive-Control-for-Multimodal-Concept-Drift"
+            buttonLogo={githublogo}
+          />
+        </div>
         <h2 className="demo-subtitle mokoto-orange">Introduction</h2>
         <p className="demo-detail">{introText}</p>
         <h2 className="demo-subtitle mokoto-orange">System Design Overview</h2>

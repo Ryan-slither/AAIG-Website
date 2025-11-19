@@ -1,0 +1,44 @@
+.link-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 12px;
+  background-color: #333399ee;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.2s ease,
+    background-position 0.4s ease, background 0.2s ease-in-out;
+  background-size: 150% 150%;
+}
+
+.link-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #333399ee;
+  background-position: 30% 20%;
+}
+
+.link-button:active {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.38),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.link-img {
+  margin-left: 5px;
+  height: 30px;
+  width: auto;
+}
+
+.link-text {
+  margin-left: auto;
+  margin-right: 10px;
+  color: white;
+  font-family: "Georgia";
+  font-weight: 600;
+  font-size: 0.9rem;
+}
